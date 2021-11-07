@@ -13,6 +13,11 @@ public class SwipeControls : MonoBehaviour
     Vector2 startTouch, endTouch, swipeDelta;
     Vector3 desiredPosition;
 
+    private void Start()
+    {
+        desiredPosition = transform.position;
+    }
+
     private void Update()
     {
         Tap = SwipeDown = SwipeUp = SwipeLeft = SwipeRight = false;
