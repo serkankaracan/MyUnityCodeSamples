@@ -5,6 +5,9 @@ public class SwipeControls : MonoBehaviour
     [SerializeField] float speedModifier = 15;
     [SerializeField] float rangeModifier = 2;
     [SerializeField] float deadZone = 100;
+    [SerializeField] bool debugWithArrowKeys = true;
+    //[SerializeField] float MAX_TAP_TIME = 0.1f;
+    //float tapTime = 0.0f;
     bool tap, swipeLeft, swipeRight, swipeUp, swipeDown;
     bool isDraging = false;
     Vector2 startTouch, endTouch, swipeDelta;
@@ -19,6 +22,7 @@ public class SwipeControls : MonoBehaviour
         {
             isDraging = true;
             startTouch = Input.mousePosition;
+            //tapTime = Time.time;
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -27,6 +31,9 @@ public class SwipeControls : MonoBehaviour
 
             if (startTouch == endTouch)
                 Tap = true;
+
+            //if (Time.time - tapTime < MAX_TAP_TIME)
+            //    Tap = true;
 
             Reset();
         }
@@ -39,6 +46,7 @@ public class SwipeControls : MonoBehaviour
             {
                 isDraging = true;
                 startTouch = Input.touches[0].position;
+                //tapTime = Time.time;
             }
             else if (Input.touches[0].phase == TouchPhase.Ended || Input.touches[0].phase == TouchPhase.Canceled)
             {
@@ -47,6 +55,9 @@ public class SwipeControls : MonoBehaviour
 
                 if (startTouch == endTouch)
                     Tap = true;
+
+                //if (Time.time - tapTime < MAX_TAP_TIME)
+                //    Tap = true;
 
                 Reset();
             }
@@ -91,6 +102,15 @@ public class SwipeControls : MonoBehaviour
             Reset();
         }
 
+        if (debugWithArrowKeys)
+        {
+            Tap = Tap || Input.GetKeyDown(KeyCode.Space);
+            SwipeLeft = SwipeLeft || Input.GetKeyDown(KeyCode.LeftArrow);
+            SwipeRight = SwipeRight || Input.GetKeyDown(KeyCode.RightArrow);
+            SwipeDown = SwipeDown || Input.GetKeyDown(KeyCode.DownArrow);
+            SwipeUp = SwipeUp || Input.GetKeyDown(KeyCode.UpArrow);
+        }
+
         if (Tap)
             desiredPosition = transform.position;
         if (SwipeLeft)
@@ -111,9 +131,9 @@ public class SwipeControls : MonoBehaviour
         isDraging = false;
     }
 
-    private bool Tap { get { return tap; } set { tap = value; if (tap) { Debug.Log("tap"); } } }
-    private bool SwipeLeft { get { return swipeLeft; } set { swipeLeft = value; if (swipeLeft) { Debug.Log("swipeLeft"); } } }
-    private bool SwipeRight { get { return swipeRight; } set { swipeRight = value; if (swipeRight) { Debug.Log("swipeRight"); } } }
-    private bool SwipeUp { get { return swipeUp; } set { swipeUp = value; if (swipeUp) { Debug.Log("swipeUp"); } } }
-    private bool SwipeDown { get { return swipeDown; } set { swipeDown = value; if (swipeDown) { Debug.Log("swipeDown"); } } }
+    private bool Tap { get { return tap; } set { tap = value; if (value) { Debug.Log("tap"); } } }
+    private bool SwipeLeft { get { return swipeLeft; } set { swipeLeft = value; if (value) { Debug.Log("swipeLeft"); } } }
+    private bool SwipeRight { get { return swipeRight; } set { swipeRight = value; if (value) { Debug.Log("swipeRight"); } } }
+    private bool SwipeUp { get { return swipeUp; } set { swipeUp = value; if (value) { Debug.Log("swipeUp"); } } }
+    private bool SwipeDown { get { return swipeDown; } set { swipeDown = value; if (value) { Debug.Log("swipeDown"); } } }
 }
