@@ -1,2 +1,2 @@
 # MyUnityCodeSamples
-Oyun projelerinde işime yarayacak kodları, sürekli internette araştırma yapmamak için buraya not ediyorum.
+I write down the codes that I will use my game projects.
