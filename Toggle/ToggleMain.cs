@@ -12,6 +12,7 @@ public abstract class ToggleMain : MonoBehaviour, IToggleMain
     public Sprite onBackground;
     public Sprite offBackground;
     bool _mValue;
+    Vector2 anchorPos;
 
     public bool TargetToggleValue
     {
@@ -21,12 +22,16 @@ public abstract class ToggleMain : MonoBehaviour, IToggleMain
             _mValue = value;
             Handle.sprite = value ? onHandle : offHandle;
             Background.sprite = value ? onBackground : offBackground;
+
+            Handle.GetComponent<RectTransform>().anchorMin = Handle.GetComponent<RectTransform>().anchorMax = value ? new Vector2(1, .5f) : new Vector2(0, .5f);
+            Handle.GetComponent<RectTransform>().anchoredPosition = value ? anchorPos : -anchorPos;
         }
     }
 
     public void Initialize()
     {
         targetToggle.graphic = null;
+        anchorPos = Handle.GetComponent<RectTransform>().anchoredPosition;
         TargetToggleValue = targetToggle.isOn;
         targetToggle.onValueChanged.AddListener(OnTargetToggleValueChanged);
     }
