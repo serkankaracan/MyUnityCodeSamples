@@ -4,11 +4,11 @@ public class MyToggle : ToggleMain
     {
         if (newValue)
         {
-            print("açýk");
+            // do sth
         }
         else
         {
-            print("kapali");
+            // do sth
         }
     }
 }
