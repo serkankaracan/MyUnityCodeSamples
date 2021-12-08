@@ -2,11 +2,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public abstract class ToggleMain : MonoBehaviour, IToggleMain
+public abstract class ToggleMain : MonoBehaviour
 {
     public Toggle targetToggle;
+    //public Image Icon;
     public Image Background;
     public Image Handle;
+    //public Sprite onIcon;
+    //public Sprite offIcon;
     public Sprite onHandle;
     public Sprite offHandle;
     public Sprite onBackground;
@@ -20,6 +23,7 @@ public abstract class ToggleMain : MonoBehaviour, IToggleMain
         private set
         {
             _mValue = value;
+            //Icon.sprite = value ? onIcon : offIcon;
             Handle.sprite = value ? onHandle : offHandle;
             Background.sprite = value ? onBackground : offBackground;
 
