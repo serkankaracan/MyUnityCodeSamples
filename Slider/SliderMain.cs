@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class SliderMain : MonoBehaviour, ISliderMain
+public abstract class SliderMain : MonoBehaviour
 {
     public Slider targetSlider;
     public Image Icon;
