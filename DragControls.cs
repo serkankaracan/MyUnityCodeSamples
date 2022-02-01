@@ -3,6 +3,7 @@ using UnityEngine;
 public class DragControls : MonoBehaviour
 {
     [SerializeField] float speedModifier = .01f;
+    [SerializeField] MoveAxis moveAxis = MoveAxis.X;
     Vector2 prevMousePos = Vector2.zero;
     Vector2 currentMousePos = Vector2.zero;
     Vector2 deltaMousePos = Vector2.zero;
@@ -12,9 +13,7 @@ public class DragControls : MonoBehaviour
         #region MobileInput
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
-            transform.position = new Vector3(transform.position.x + Input.GetTouch(0).deltaPosition.x * speedModifier,
-                transform.position.y + Input.GetTouch(0).deltaPosition.y * speedModifier,
-                transform.position.z);
+            MoveGameObject(Input.GetTouch(0).deltaPosition);
         }
         #endregion
 
@@ -28,12 +27,39 @@ public class DragControls : MonoBehaviour
             currentMousePos = Input.mousePosition;
             deltaMousePos = currentMousePos - prevMousePos;
 
-            transform.position = new Vector3(transform.position.x + deltaMousePos.x * speedModifier,
-                transform.position.y + deltaMousePos.y * speedModifier,
-                transform.position.z);
+            MoveGameObject(deltaMousePos);
 
             prevMousePos = Input.mousePosition;
         }
         #endregion
+    }
+
+    void MoveGameObject(Vector2 delta)
+    {
+        float xValue = transform.position.x + delta.x * speedModifier;
+        float yValue = transform.position.y + delta.y * speedModifier;
+        float zValue = transform.position.z + delta.y * speedModifier;
+
+        switch (moveAxis)
+        {
+            case MoveAxis.X:
+                transform.position = new Vector3(xValue, transform.position.y, transform.position.z);
+                break;
+            case MoveAxis.XY:
+                transform.position = new Vector3(xValue, yValue, transform.position.z);
+                break;
+            case MoveAxis.XZ:
+                transform.position = new Vector3(xValue, transform.position.y, zValue);
+                break;
+            default:
+                break;
+        }
+    }
+
+    enum MoveAxis
+    {
+        X,
+        XY,
+        XZ
     }
 }
