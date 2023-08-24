@@ -4,12 +4,12 @@ public class CameraFollowInMiddle : MonoBehaviour
 {
     public Transform Player;
     public float smoothSpeed = 10f;
-    public float distanceFromPlayer = 10f;
-    public float yHeightOffset = 5f;
+    public float distanceFromPlayer = 15f;
+    public float heightFromPlayer = 15f;
 
     private void LateUpdate()
     {
-        Vector3 targetPosition = Player.position - Vector3.forward * distanceFromPlayer + Vector3.up * yHeightOffset;
+        Vector3 targetPosition = Player.position - Vector3.forward * distanceFromPlayer + Vector3.up * heightFromPlayer;
         Quaternion targetRotation = Quaternion.Euler(CalculateXRotation(), 0, 0);
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * Time.deltaTime);
