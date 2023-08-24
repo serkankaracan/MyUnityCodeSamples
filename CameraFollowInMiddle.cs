@@ -5,7 +5,8 @@ public class CameraFollowInMiddle : MonoBehaviour
     public Transform Player;
     public float smoothSpeed = 10f;
     public float distanceFromPlayer = 15f;
-    public float heightFromPlayer = 15f;
+    public float heightFromPlayer = 20f;
+    public float fixAngle = -10;
 
     private void LateUpdate()
     {
@@ -20,6 +21,6 @@ public class CameraFollowInMiddle : MonoBehaviour
     {
         Vector3 direction = Player.position - transform.position;
         float xRotation = -Mathf.Atan2(direction.y, direction.z) * Mathf.Rad2Deg;
-        return xRotation;
+        return xRotation + fixAngle;
     }
 }
